@@ -1,0 +1,120 @@
+#include<iostream>
+using namespace std ;
+
+class Node
+{
+public:
+int data ;
+Node* next ;
+Node(int data)
+{
+    this->data = data ;
+    next = NULL ;
+}
+} ;
+class Queue
+{
+public:
+Node* frontNode = NULL ;
+Node* rearNode = NULL ;
+
+void Enqueue(int data)
+{
+          Node*  newNode = new Node(data) ;
+    if(frontNode == NULL)
+    {
+        frontNode = newNode ;
+        rearNode = newNode ;
+        return ;
+    }
+   Node* temp = rearNode ;
+    temp->next = newNode ;
+    rearNode = newNode ;
+} 
+bool isEmpty()
+{
+    return frontNode == NULL ;
+}
+void Dequeue()
+{
+
+    if(isEmpty())
+    {
+        cout << "UNDERFLOW Queue is Empty" << endl ;
+        return ;
+    }
+  Node* temp = frontNode ;
+  
+
+cout << "Value " << temp->data << " Removed from Queue " << endl ;
+          frontNode = frontNode->next ;
+          
+          
+          if(frontNode == NULL)
+          {
+             rearNode = NULL ;
+          }
+  delete temp ;
+    
+}
+int front()
+{
+    if(isEmpty())
+    {
+        cout << "Empty Queue!" << endl ;
+        return -1;
+    }
+    return frontNode->data ;
+}
+void display()
+{
+    if(isEmpty())
+    {
+        cout << "Queue is Empty" << endl ;
+        return ;
+    }
+    Node* temp = frontNode ;
+    while(temp != NULL) 
+    {
+        cout << temp->data << " -> " ;
+        temp = temp->next ;
+    }
+    cout << "NULL" << endl ;
+}
+~Queue()
+{
+    
+    while(frontNode != NULL){
+        Node* temp = frontNode ;
+        frontNode = frontNode->next ;
+
+        delete temp ;
+        
+    }
+            if(isEmpty())
+        {
+            rearNode = NULL ;
+        }
+   
+    
+    cout << "MEMORY DEALLOCATED!" << endl ;
+}
+
+} ;
+
+int main()
+{
+ Queue q ;
+    q.Enqueue(100) ;
+    q.Enqueue(200) ;
+    q.Enqueue(320) ;
+    q.Enqueue(440) ;
+    q.Enqueue(560) ;
+    q.display() ;
+    q.Dequeue() ;
+    q.Dequeue() ;
+    q.display() ;
+
+    return 0 ;
+}
+
