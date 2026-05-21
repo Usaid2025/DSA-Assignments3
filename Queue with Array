@@ -1,0 +1,78 @@
+#include<iostream>
+using namespace std ;
+
+class Cqueue
+{
+  public:
+    static const int size = 6 ;
+    int arr[size] ;
+    int front = 0 ;
+    int rear = -1 ;
+    int currentSize = 0 ;
+    
+    bool isFull()
+    {
+        return currentSize == size ;
+    }
+    bool isEmpty()
+    {
+        return currentSize == 0 ;
+    }
+    void Enqueue(int val) 
+    {
+        if(isFull())
+        {
+            cout << "OVERFLOW! Capacity Full." << endl ;
+            return ;
+        }
+        currentSize++ ;
+      
+        rear = (rear+1) % 6 ;
+        arr[rear] = val ;
+    }
+    void Dequeue()
+    {
+        if(isEmpty())
+        {
+            cout << "Queue is Empty!" << endl ;
+            return ;
+        }
+        
+        front = (front+1) % 6 ;
+        currentSize-- ;
+    }
+    void display()
+    {
+        if(isEmpty())
+        {
+            cout << "Queue is Empty!" << endl ;
+            return ;
+        }
+        int index = front ;
+        for(int i = 0 ; i < currentSize ; i++  )
+        {
+            cout << arr[index] << endl ;
+           index = (index+1) % 6 ;
+        }
+    }
+
+} ;
+int main()
+{
+    Cqueue c ;
+    c.Enqueue(56) ;
+    c.Enqueue(78) ;
+    c.Enqueue(89) ;
+    c.Enqueue(96) ;
+    c.Enqueue(44) ;
+    c.Enqueue(101) ;
+    c.Enqueue(200) ;
+    c.display() ;
+    c.Dequeue() ;
+    c.Dequeue() ;
+    c.Enqueue(996) ;
+    c.Enqueue(442) ;
+    c.display() ;
+    return 0 ;
+}
+
